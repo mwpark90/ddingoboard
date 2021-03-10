@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.member.MemberDto;
 import com.example.demo.service.member.MemberService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -19,7 +18,11 @@ public class UserController {
         return "Hello";
     }
 
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public String execSignup(@RequestBody MemberDto memberDto) {
+        memberService.joinUser(memberDto);
 
-
+        return "Hello";
+    }
 
 }

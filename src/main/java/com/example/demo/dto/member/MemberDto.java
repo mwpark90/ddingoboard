@@ -5,6 +5,7 @@ import com.example.demo.domain.Member.MemberEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,8 +16,8 @@ public class MemberDto {
     private String email;
     private String password;
     private String username;
-    private LocalDateTime create_time;
-    private LocalDateTime modify_time;
+    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDateTime modifiedDate = LocalDateTime.now();
 
     public MemberEntity toEntity(){
         return MemberEntity.builder()
@@ -24,16 +25,17 @@ public class MemberDto {
                 .email(email)
                 .password(password)
                 .username(username)
+                .createdDate(createdDate)
+                .modifiedDate(modifiedDate)
                 .build();
     }
 
     @Builder
-    public MemberDto(Long id,String email, String password, String username){
+    public MemberDto(Long id, String email, String password,String username) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.username = username;
+        this.username = username;;
     }
-
-
 }
+

@@ -1,48 +1,47 @@
 package com.example.demo.domain.Member;
 
-
-import javafx.scene.NodeBuilder;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
-@Setter
-@Table(name = "memeber")
+@Entity
+@Table(name = "member")
 public class MemberEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length = 20, nullable = false)
     private String email;
 
-    @Column(nullable = false)
-    private String username;
-
-    @Column(nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    private Date create_time;
+    @Column(length = 100, nullable = false)
+    private String username;
 
     @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private Date modify_time;
+    private LocalDateTime createdDate;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime modifiedDate;
 
     @Builder
-    public MemberEntity(Long id, String email, String password, String username){
+    public MemberEntity(Long id, String email, String password,String username, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
     }
 }
