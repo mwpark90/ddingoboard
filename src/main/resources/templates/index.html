@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/project.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -10,6 +9,9 @@
   <title>메인</title>
 </head>
 <body>
+
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Arno Board</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +35,35 @@
       </ul>
     </div>
   </nav>
+
+  <div sec:authorities="isAuthenticated()">
+    This content is only shown to authenticated users.
+  </div>
+  <div sec:authorities="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+  </div>
+  <div sec:authorities="hasRole('ROLE_MEMBER')">
+    This content is only shown to users.
+  </div>
+
+  ID : <span sec:authentication="name"></span> <br>
+  소유 권한 : <span sec:authentication="authorities"></span> <br>
+
+  <div sec:authorize="isAuthenticated()">
+    Name: <span sec:authentication="name">SomeName</span><br />
+    Principal: <span sec:authentication="principal">PrincipalString</span><br />
+    Principal.email: <span sec:authentication="principal.email">Email</span><br />
+    HasRole(USER): <span sec:authorize="hasRole('ROLE_USER')">YES</span><br />
+    HasRole(ADMIN): <span sec:authorize="hasRole('ROLE_ADMIN')">YES</span>
+  </div>
+
+
+  <div>
+      Logged user: <span sec:authorize="name"></span>
+  </div>
+  <div>
+      Roles: <span sec:authorize="principal.authorities"></span>
+  </div>
 
 </body>
 </html>

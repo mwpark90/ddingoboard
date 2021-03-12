@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/project.css">
@@ -35,5 +35,32 @@
 
 <h1>어드민 페이지입니다.</h1>
 <hr>
+
+
+    <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        This content is only shown to administrators.
+    </div>
+    <div sec:authorize="hasRole('ROLE_MEMBER')">
+        This content is only shown to users.
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        Name: <span sec:authentication="name">SomeName</span><br />
+        Principal: <span sec:authentication="principal">PrincipalString</span><br />
+        Principal.email: <span sec:authentication="principal.email">Email</span><br />
+        HasRole(USER): <span sec:authorize="hasRole('ROLE_USER')">YES</span><br />
+        HasRole(ADMIN): <span sec:authorize="hasRole('ROLE_ADMIN')">YES</span>
+    </div>
+
+
+    <div>
+        Logged user: <span sec:authorize="name"></span>
+    </div>
+    <div>
+        Roles: <span sec:authorize="principal.authorities"></span>
+    </div>
 </body>
 </html>
