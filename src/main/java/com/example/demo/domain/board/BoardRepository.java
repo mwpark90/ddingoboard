@@ -1,11 +1,12 @@
 package com.example.demo.domain.board;
 
-import com.example.demo.domain.book.BookEntity;
-import org.springframework.data.repository.CrudRepository;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BoardRepository extends CrudRepository< BookEntity,Long>{
+public interface BoardRepository extends JpaRepository<BoardEntity, Long>{
 }
 
 

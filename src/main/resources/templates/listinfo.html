@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -8,8 +8,36 @@
     <title>Title</title>
 </head>
 <body>
-<input type="submit" class="fadeIn fourth" value="글쓰기 취소" onclick="location.href='/board/list'">
-ssss
+
+<form th:action="@{/board/writing}" method="post">
+    <article class="container">
+        <h1>글 쓰기</h1>
+        <hr>
+        <div class="col-sm-6 col-md-offset-3">
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input class="form-control" name="title" id="title" placeholder="이름을 입력해 주세요">
+            </div>
+            <div class="form-group">
+                <label for="content">내용</label>
+                <input type="email" class="form-control" name="content" id="content" placeholder="이메일 주소를 입력해주세요">
+            </div>
+            <div class="form-group">
+                <label for="writer">글쓴이</label>
+                <input type="email" class="form-control" name="writer" id="writer" placeholder="이메일 주소를 입력해주세요">
+            </div>
+
+
+            <div class="form-group text-center">
+                <button type="submit" id="join-submit" class="btn btn-primary">
+                    회원가입<i class="fa fa-check spaceLeft"></i>
+                </button>
+                <button type="button" class="btn btn-warning" onclick="location.href='/board/list'">글쓰기 취소<i class="fa fa-times spaceLeft"></i></button>
+            </div>
+        </div>
+
+    </article>
+</form>
 
 </body>
 </html>
