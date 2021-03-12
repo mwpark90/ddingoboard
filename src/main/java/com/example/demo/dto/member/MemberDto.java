@@ -15,7 +15,7 @@ public class MemberDto {
     private Long id;
     private String email;
     private String password;
-    private String username;
+    private String inputName;
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime modifiedDate = LocalDateTime.now();
 
@@ -24,18 +24,18 @@ public class MemberDto {
                 .id(id)
                 .email(email)
                 .password(password)
-                .username(username)
+                .inputName(inputName)
                 .createdDate(createdDate)
                 .modifiedDate(modifiedDate)
                 .build();
     }
 
     @Builder
-    public MemberDto(Long id, String email, String password,String username) {
+    public MemberDto(Long id, String email, String password, String inputName) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.username = username;;
+        this.inputName = inputName;
     }
 }
 
