@@ -53,7 +53,14 @@ public class BoardController {
     private FileRepository fileRepository;
 
     @GetMapping("/board/info")
-    public String listInfo() {
+    public String listInfo(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+        String username = principal.getUsername();
+        MemberEntity memberDtoList = memberService.getMember(username);
+
+
+        model.addAttribute("member", memberDtoList);
         return "/listInfo";
     }
 

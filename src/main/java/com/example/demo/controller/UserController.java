@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Member.MemberEntity;
+import com.example.demo.domain.Member.MemberRepository;
 import com.example.demo.dto.board.BoardDto;
 import com.example.demo.dto.member.MemberDto;
 import com.example.demo.service.board.BoardService;
@@ -26,6 +27,9 @@ public class UserController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     // 메인 페이지
     @GetMapping("/")
@@ -102,6 +106,11 @@ public class UserController {
         return "redirect:/admin/list";
     }
 
-
+    //내정보 수정
+    @PostMapping("/user/edit/{id}")
+    public String memberEdit(MemberDto memberDto) {
+        memberRepository.save(memberDto.toEntity());
+        return "redirect:/user/login";
+    }
 
 }
