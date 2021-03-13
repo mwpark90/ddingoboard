@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<div class="container" style="padding-top: 30px">
+    <form th:action="@{'/post/edit/' + ${post.id}}" method="post">
+        <input type="hidden" name="_method" value="put"/>
+        <input type="hidden" name="id" th:value="${post.id}"/>
+        <div class="form-group row">
+            <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+            <div class="col-sm-10">
+                <input type="text" name="title" class="form-control" id="inputTitle" th:value="${post.title}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputAuthor" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
+            <div class="col-sm-10">
+                <input type="text" name="writer" class="form-control" id="inputAuthor" th:value="${post.writer}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+            <div class="col-sm-10">
+                <textarea type="text" name="content" class="form-control" id="inputContent"th:text="${post.content}"> </textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto mr-auto"></div>
+            <div class="col-auto">
+                <input class="btn btn-primary" type="submit" role="button" value="수정">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

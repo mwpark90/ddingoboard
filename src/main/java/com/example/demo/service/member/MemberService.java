@@ -50,4 +50,17 @@ public class MemberService implements UserDetailsService {
 
         return new User(userEntity.getEmail(), userEntity.getPassword(), authorities);
     }
+
+    @Transactional
+    public List<MemberEntity> getAllMember() {
+        List<MemberEntity> member = memberRepository.findAll();
+        return member;
+    }
+
+    @Transactional
+    public MemberEntity getMember(String userEmail) {
+        Optional<MemberEntity> member = memberRepository.findByEmail(userEmail);
+        MemberEntity userEntity = member.get();
+        return userEntity;
+    }
 }

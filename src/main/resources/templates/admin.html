@@ -33,34 +33,133 @@
         </div>
     </nav>
 
-<h1>어드민 페이지입니다.</h1>
+    <div style="text-align: center;">
+<h2>Admin Table Layout</h2>
+    </div>
 <hr>
+    <h2>MEMBER TABLE</h2>
+    <div class="tableLayout">
+        <table class="table">
+            <colgroup>
+                <col width="10%"/>
+                <col width="20%"/>
+                <col width="*"/>
+                <col width="10%"/>
+                <col width="20%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>CreateTime</th>
+                <th>ModifyTime</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" th:each="member : ${memberList}">
+                <th scope="row">
+                    <span th:text="${member.id}"></span>
+                </th>
+                <td>
+                    <span th:text="${member.email}"></span>
+                </td>
+                <td>
+                    <span th:text="${member.inputName}"></span>
+                </td>
+                <td>
+                    <span th:text="${#temporals.format(member.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                </td>
+                <td>
+                    <span th:text="${#temporals.format(member.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <h2>BOARD TABLE</h2>
+    <div class="tableLayout">
+        <table class="table">
+            <colgroup>
+                <col width="10%"/>
+                <col width="20%"/>
+                <col width="*"/>
+                <col width="10%"/>
+                <col width="20%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>글쓴이</th>
+                <th>생성시간</th>
+                <th>수정시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" th:each="board : ${boardList}">
+                <th scope="row">
+                    <span th:text="${board.id}"></span>
+                </th>
+                <td>
+                    <span th:text="${board.title}"></span>
+                </td>
+                <td>
+                    <span th:text="${board.content}"></span>
+                </td>
+                <td>
+                    <span th:text="${board.writer}"></span>
+                </td>
+                <td>
+                    <span th:text="${#temporals.format(board.insert_time, 'yyyy-MM-dd HH:mm')}"></span>
+                </td>
+                <td>
+                    <span th:text="${#temporals.format(board.update_time, 'yyyy-MM-dd HH:mm')}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <h2>BOARDFILE TABLE</h2>
+    <div class="tableLayout">
+        <table class="table">
+            <colgroup>
+                <col width="10%"/>
+                <col width="20%"/>
+                <col width="*"/>
+                <col width="10%"/>
+                <col width="20%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>OrigFileName</th>
+                <th>FileName</th>
+                <th>FilePath</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" th:each="file : ${boardfileList}">
+                <th scope="row">
+                    <span th:text="${file.id}"></span>
+                </th>
+                <td>
+                    <span th:text="${file.origFilename}"></span>
+                </td>
+                <td>
+                    <span th:text="${file.filename}"></span>
+                </td>
+                <td>
+                    <span th:text="${file.filePath}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
 
-
-    <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.
-    </div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        This content is only shown to administrators.
-    </div>
-    <div sec:authorize="hasRole('ROLE_MEMBER')">
-        This content is only shown to users.
-    </div>
-
-    <div sec:authorize="isAuthenticated()">
-        Name: <span sec:authentication="name">SomeName</span><br />
-        Principal: <span sec:authentication="principal">PrincipalString</span><br />
-        Principal.email: <span sec:authentication="principal.email">Email</span><br />
-        HasRole(USER): <span sec:authorize="hasRole('ROLE_USER')">YES</span><br />
-        HasRole(ADMIN): <span sec:authorize="hasRole('ROLE_ADMIN')">YES</span>
-    </div>
-
-
-    <div>
-        Logged user: <span sec:authorize="name"></span>
-    </div>
-    <div>
-        Roles: <span sec:authorize="principal.authorities"></span>
-    </div>
 </body>
 </html>

@@ -29,6 +29,12 @@ public class BoardEntity {
     @Column(nullable = false)
     private String writer;
 
+    @Column
+    private Long fileId;
+
+    @Column(nullable = false)
+    private String filename;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime insert_time;
@@ -38,13 +44,15 @@ public class BoardEntity {
     private LocalDateTime update_time;
 
     @Builder
-    public BoardEntity(Long id, String title, String content, String writer, LocalDateTime insert_time, LocalDateTime update_time) {
+    public BoardEntity(Long id, String title, String content, String writer, String filename, LocalDateTime insert_time, LocalDateTime update_time,Long fileId) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.filename = filename;
         this.insert_time = insert_time;
         this.update_time = update_time;
+        this.fileId = fileId;
     }
 
 }

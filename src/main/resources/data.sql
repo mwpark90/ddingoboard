@@ -1,14 +1,9 @@
-INSERT INTO book (id, name, category, sell_count, create_at) VALUES
-('7c9649e3-944a-4bfc-a332-e77c3ce517af', '열 번의 산책', '인문', 9000, NOW()),
-('c164e06d-a57c-4045-a03d-43ce3b33d09a', '숲길', '인문', 12000, NOW()),
-('f60dfe05-ba02-4f18-b663-eb0f0d2be4c9', '바닷마을 인문학', '인문', 13500, NOW()),
-('bf4f57d6-f2bd-4c04-9138-2d214a943019', '트렌드 코리아 2020', '경제', 25400, NOW()),
-('0918b305-093c-4d83-bcdf-49ec86a701ed', '부의 인문학', '경제', 14500, NOW()),
-('faaacd46-240a-434c-a210-a3de0d6d9292', '넛지', '경제', 13500, NOW()),
-('d02f77b1-51de-4505-ad87-5e6dc3dfa4c2', '일의 기쁨과 슬픔', '소설', 11000, NOW()),
-('d41b537f-3f0b-4d84-9e7f-d33668c4a3bc', '아몬드', '소설', 12000, NOW()),
-('875125be-c1a4-4496-a7b5-9b2cbf39a2b3', '한국단편소설 40', '소설', 14700, NOW()),
-('70afb424-7223-42df-9881-96a6284eacc2', '대한민국 요즘 여행', '여행', 16920, NOW());
-
 
 INSERT INTO PUBLIC.MEMBER (ID, CREATED_DATE, EMAIL, INPUT_NAME, MODIFIED_DATE, PASSWORD) VALUES (1, '2021-03-12 14:12:51.503000', 'admin', 'adminA', '2021-03-12 14:12:51.503000', '$2a$10$nMh5luklO0zJCCZDtrDbB.ZDDBJunY8tzzu1AamlMT4FyprebX7I2');
+INSERT INTO PUBLIC.MEMBER (ID, CREATED_DATE, EMAIL, INPUT_NAME, MODIFIED_DATE, PASSWORD) VALUES (2, '2021-03-13 01:22:31.137000', 'user1@naver.com', 'user1', '2021-03-13 01:22:31.137000', '$2a$10$jKauT49aL.0U9pM78uqP6./HVmKjCHXdhyj1TvaX3/OxIux/Z7mlC');
+
+INSERT INTO PUBLIC.BOARD (ID, CONTENT, FILE_ID, FILENAME, INSERT_TIME, TITLE, UPDATE_TIME, WRITER) VALUES (1, 'TEST', 1, 'TEST.docx', '2021-03-13 01:23:04.153000', 'TEST', '2021-03-13 01:23:04.153000', 'user1');
+INSERT INTO PUBLIC.BOARD (ID, CONTENT, FILE_ID, FILENAME, INSERT_TIME, TITLE, UPDATE_TIME, WRITER) VALUES (2, 'Test2', 2, 'test.pptx', '2021-03-13 01:23:25.129000', 'TEST2', '2021-03-13 01:23:25.129000', 'user1');
+
+INSERT INTO PUBLIC.BOARDFILE (ID, FILE_PATH, FILENAME, ORIG_FILENAME) VALUES (1, '/Users/ddinggo/Project_N/ddingoboard\files\557fcf0916d49608d8b553be09ede20a', '557fcf0916d49608d8b553be09ede20a', 'TEST.docx');
+INSERT INTO PUBLIC.BOARDFILE (ID, FILE_PATH, FILENAME, ORIG_FILENAME) VALUES (2, '/Users/ddinggo/Project_N/ddingoboard\files\229c988d45ce0222bd5e710056a58de7', '229c988d45ce0222bd5e710056a58de7', 'test.pptx');

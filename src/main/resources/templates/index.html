@@ -35,34 +35,76 @@
       </ul>
     </div>
   </nav>
+  <!--  Email :  <span th:text="${member.email}"></span> <br>-->
+  <span th:text="${member.inputName}"></span> 환영합니다. <br>
+  <hr>
 
-  <div sec:authorities="isAuthenticated()">
-    This content is only shown to authenticated users.
-  </div>
-  <div sec:authorities="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
-  </div>
-  <div sec:authorities="hasRole('ROLE_MEMBER')">
-    This content is only shown to users.
-  </div>
+  <div class="container">
+    <div class="jumbotron">
+      <h2>게시판</h2>
+    </div>
+    <div class="tableLayout">
+      <table class="table">
+        <colgroup>
+          <col width="10%"/>
+          <col width="20%"/>
+          <col width="*"/>
+          <col width="10%"/>
+          <col width="20%"/>
+        </colgroup>
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>내용</th>
+          <th>글쓴이</th>
+          <th>생성시간</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" th:each="post : ${postList}">
+          <th scope="row">
+            <span th:text="${post.id}"></span>
+          </th>
+          <td>
+            <a th:href="@{'/post/' + ${post.id}}">
+              <span th:text="${post.title}"></span>
+            </a>
+          </td>
+          <td>
+            <span th:text="${post.content}"></span>
+          </td>
+          <td>
+            <span th:text="${post.writer}"></span>
+          </td>
+          <td>
+            <span th:text="${#temporals.format(post.update_time, 'yyyy-MM-dd HH:mm')}"></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
-  ID : <span sec:authentication="name"></span> <br>
-  소유 권한 : <span sec:authentication="authorities"></span> <br>
 
-  <div sec:authorize="isAuthenticated()">
-    Name: <span sec:authentication="name">SomeName</span><br />
-    Principal: <span sec:authentication="principal">PrincipalString</span><br />
-    Principal.email: <span sec:authentication="principal.email">Email</span><br />
-    HasRole(USER): <span sec:authorize="hasRole('ROLE_USER')">YES</span><br />
-    HasRole(ADMIN): <span sec:authorize="hasRole('ROLE_ADMIN')">YES</span>
-  </div>
+    <nav style="text-align: center;">
+      <div style="text-align: right;">
+        <button type="button" onclick="location.href='/board/info'">글쓰기</button>
+      </div>
+      <form action="/board/search" method="GET">
+        <div>
+          <input type="search" name="keyword"  placeholder="검색어를 입력해주세요">
+          <button>검색하기</button>
+        </div>
+      </form>
 
+      <div>
+        <span th:each="pageNum : ${pageList}" th:inline="text">
+            <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+        </span>
+      </div>
 
-  <div>
-      Logged user: <span sec:authorize="name"></span>
-  </div>
-  <div>
-      Roles: <span sec:authorize="principal.authorities"></span>
+    </nav>
+
   </div>
 
 </body>
