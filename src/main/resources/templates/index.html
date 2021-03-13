@@ -99,7 +99,7 @@
 
       <div>
         <span th:each="pageNum : ${pageList}" th:inline="text">
-            <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+            <a th:href="@{'/board/list'}">[[${pageNum}]]</a>
         </span>
       </div>
 

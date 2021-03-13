@@ -56,15 +56,12 @@ public class BoardService {
     @Transactional
     public BoardDto getPost(Long id) {
         BoardEntity board = boardRepository.findById(id).get();
-        FileEntity file = fileRepository.findById(id).get();
 
         BoardDto boardDto = BoardDto.builder()
                 .id(board.getId())
                 .writer(board.getWriter())
                 .title(board.getTitle())
                 .content(board.getContent())
-                .fileId(board.getFileId())
-                .filename(file.getOrigFilename())
                 .update_time(board.getUpdate_time())
                 .build();
 
@@ -83,7 +80,7 @@ public class BoardService {
 
     @Transactional
     public List<BoardDto> searchPosts(String keyword) {
-        List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
+        List<BoardEntity> boardEntities = boardRepository.findByTitle(keyword);
         List<BoardDto> boardDtoList = new ArrayList<>();
 
         if (boardEntities.isEmpty()) return boardDtoList;

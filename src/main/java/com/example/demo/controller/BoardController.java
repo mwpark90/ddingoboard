@@ -5,6 +5,8 @@ package com.example.demo.controller;
 import com.example.demo.domain.Member.MemberEntity;
 import com.example.demo.domain.board.BoardRepository;
 
+import com.example.demo.domain.file.FileEntity;
+import com.example.demo.domain.file.FileRepository;
 import com.example.demo.dto.board.BoardDto;
 import com.example.demo.dto.file.FileDto;
 import com.example.demo.service.board.BoardService;
@@ -47,6 +49,9 @@ public class BoardController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private FileRepository fileRepository;
+
     @GetMapping("/board/info")
     public String listInfo() {
         return "/listInfo";
@@ -55,33 +60,44 @@ public class BoardController {
     //글 저장 Controller
     //첨부파일 등록
     @PostMapping("/board/writing")
-    public String write(@RequestParam("file") MultipartFile files, BoardDto boardDto) {
+    public String write(@RequestParam("file") List<MultipartFile> files, BoardDto boardDto) {
         try {
-            String origFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(origFilename).toString();
-            /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
-            String savePath = System.getProperty("user.dir") + "\\files";
-            /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
-            if (!new File(savePath).exists()) {
-                try{
-                    new File(savePath).mkdir();
-                }
-                catch(Exception e){
-                    e.getStackTrace();
-                }
-            }
-            String filePath = savePath + "\\" + filename;
-            files.transferTo(new File(filePath));
-
+            String originalName = null;
+            String filename = null;
+            String filePath = null;
+            Long fileId = null;
             FileDto fileDto = new FileDto();
-            fileDto.setOrigFilename(origFilename);
-            fileDto.setFilename(filename);
-            fileDto.setFilePath(filePath);
 
-            Long fileId = fileService.saveFile(fileDto);
-            boardDto.setFileId(fileId);
-            boardDto.setFilename(origFilename);
-            boardService.savePost(boardDto);
+
+            Long boardid =  boardService.savePost(boardDto);
+
+            // 파일 업로드(여러개) 처리 부분
+            for(MultipartFile file : files) {
+                originalName = file.getOriginalFilename();
+                filename = new MD5Generator(originalName).toString();
+                /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다. */
+                String savePath = System.getProperty("user.dir") + "\\files";
+                /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
+                if (!new File(savePath).exists()) {
+                    try{
+                        new File(savePath).mkdir();
+                    }
+                    catch(Exception e){
+                        e.getStackTrace();
+                    }
+                }
+                filePath = savePath + "\\" + filename;
+                file.transferTo(new File(filePath));
+
+                fileDto = new FileDto();
+                fileDto.setOrigFilename(originalName);
+                fileDto.setFilename(filename);
+                fileDto.setFilePath(filePath);
+                fileDto.setBoardid(boardid);
+                fileId = fileService.saveFile(fileDto);
+            }
+
+
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -126,22 +142,36 @@ public class BoardController {
     @PostMapping("/post/{id}")
     public String delete(@PathVariable("id") Long id) {
         boardService.deletePost(id);
+        fileService.deleteFile(id);
         return "redirect:/board/list";
     }
 
     //Search
     @GetMapping("/board/search")
-    public String search(@RequestParam(value="keyword") String keyword, Model model) {
+    public String search(@RequestParam(value="keyword") String keyword, Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
         List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
-        model.addAttribute("boardList", boardDtoList);
-        return "redirect:/board/list";
+        Integer[] pageList = boardService.getPageList(pageNum);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+        String username = principal.getUsername();
+        MemberEntity memberDtoList = memberService.getMember(username);
+
+        model.addAttribute("member", memberDtoList);
+        model.addAttribute("pageList", pageList);
+        model.addAttribute("postList", boardDtoList);
+
+        return "/index";
     }
 
     //Detail
     @GetMapping("/post/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         BoardDto boardDto = boardService.getPost(id);
+        List<FileEntity> filelist = fileRepository.findByBoardid(id);
+
         model.addAttribute("post", boardDto);
+        model.addAttribute("fileList", filelist);
         return "detail";
     }
 

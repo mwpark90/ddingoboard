@@ -40,4 +40,9 @@ public class FileService {
         return file;
     }
 
+
+    @Transactional
+    public void deleteFile(Long id) {
+        fileRepository.deleteByBoardid(id);
+    }
 }

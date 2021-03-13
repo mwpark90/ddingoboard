@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Long>{
-    List<BoardEntity> findByTitleContaining(String keyword);
+    List<BoardEntity> findByTitle(String keyword);
 }
 
 

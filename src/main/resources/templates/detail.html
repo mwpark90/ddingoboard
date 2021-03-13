@@ -15,9 +15,11 @@
             <h5 class="card-title" th:text="@{${post.title} + ' - ' + ${post.writer}}"></h5>
             <p class="card-text"><small class="text-muted" th:text="${#temporals.format(post.update_time, 'yyyy-MM-dd HH:mm')}"></small></p>
             <p class="card-text" th:text="${post.content}"></p>
-            <div th:if="${post.fileId != null}">
-                <strong>첨부파일 : </strong>
-                <a class="card-text" th:href="@{'/download/' + ${post.fileId}}" th:text="${post.filename}"></a>
+            <div th:if="${fileList != null }">
+                    <strong>첨부파일 : </strong>
+                    <th:block th:each="file : ${fileList}">
+                        <a class="card-text" th:href="@{'/download/' + ${file.id}}" th:text="${file.origFilename}"></a>
+                    </th:block>
             </div>
         </div>
     </div>

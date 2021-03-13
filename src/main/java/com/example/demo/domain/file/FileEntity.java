@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class FileEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -24,11 +24,15 @@ public class FileEntity {
     @Column(nullable = false)
     private String filePath;
 
+    @Column(nullable = false)
+    private Long boardid;
+
     @Builder
-    public FileEntity(Long id, String origFilename, String filename, String filePath) {
+    public FileEntity(Long id, String origFilename, String filename, String filePath,Long boardid) {
         this.id = id;
         this.origFilename = origFilename;
         this.filename = filename;
         this.filePath = filePath;
+        this.boardid = boardid;
     }
 }

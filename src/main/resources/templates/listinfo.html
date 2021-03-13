@@ -36,7 +36,7 @@
                 <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
                 <div class="col-sm-10">
                     <div class="custom-file" id="inputFile">
-                        <input name="file" type="file" class="custom-file-input" id="customFile">
+                        <input multiple="multiple" name="file" type="file" class="custom-file-input" id="customFile">
                         <label class="custom-file-label" for="customFile">파일을 선택해 주세요.</label>
                     </div>
                 </div>
@@ -54,6 +54,7 @@
 
 <script>
     $(".custom-file-input").on("change", function() {
+        debugger;
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
