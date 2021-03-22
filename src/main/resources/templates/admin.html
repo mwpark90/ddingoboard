@@ -21,6 +21,9 @@
                     <a sec:authorize="isAuthenticated()" th:href="@{/board/list}" class="nav-link" >게시판 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
+                    <a sec:authorize="isAuthenticated()" th:href="@{/monitring/grfanaview}" class="nav-link" >모니터링</span></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/user/info}">내 정보</a>
                 </li>
                 <li class="nav-item">

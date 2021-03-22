@@ -25,6 +25,9 @@
           <a sec:authorize="isAuthenticated()" th:href="@{/board/list}" class="nav-link" >게시판 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
+          <a sec:authorize="isAuthenticated()" th:href="@{/monitring/grfanaview}" class="nav-link" >모니터링</span></a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/user/info}">내 정보</a>
         </li>
         <li class="nav-item">
@@ -141,7 +144,7 @@
       var from = new Date(today).getTime();
       var to = new Date().getTime();
 
-      var myPath = 'http://localhost:3000/d-solo/plArEdwGk/cpu_dashboard?orgId=1&from='+ from +'&to='+ to +'&panelId=2 width="500" height="300" frameborder="0"'; // initialises string variable myPath
+      var myPath = 'http://localhost:3000/d-solo/fFO56hQGk/dev_cpu_ide?orgId=1&from='+ from +'&to='+ to +'&panelId=2 width="500" height="300" frameborder="0"'; // initialises string variable myPath
 
       var myImg = document.createElement('iframe'); // creates a new img element
       myImg.setAttribute('src', myPath); // adds a src attribute (with the value myPath) to myImg

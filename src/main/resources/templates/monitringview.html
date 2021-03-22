@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/project.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <title>Title</title>
+</head>
+<body>
+
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Arno Board</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" th:href="@{/board/list}" class="nav-link" >게시판 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" th:href="@{/monitring/grfanaview}" class="nav-link" >모니터링</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/user/info}">내 정보</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}">어드민</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<hr>
+
+<div class="container">
+    <!--     <iframe src="http://localhost:3000/d-solo/plArEdwGk/cpu_dashboard?orgId=1&from=1616226852880&to=1616248452880&panelId=2" width="500" height="300" frameborder="0"></iframe>-->
+
+    <div id="my-div"></div>
+
+</div>
+<script>
+    debugger;
+
+    $(document).ready(function(){
+        var myDiv = document.getElementById('my-div'); // grabs #my-div
+        elementCreate(myDiv)
+
+        playAlert = setInterval(function() {
+            elementCreate(myDiv)
+        }, 30000);
+    });
+
+    function elementCreate(myDiv){
+        const today = new Date();
+        // h = 시
+        // m = 분
+        let h = today.getHours();
+        let m = today.getMinutes();
+
+        // 각 시간의 5분 간격에서 10분 빼기
+        m = m - (m % 5) - 10;
+
+        today.setMinutes(m);
+
+        var from = new Date(today).getTime();
+        var to = new Date().getTime();
+
+        var myPath = 'http://localhost:3000/d-solo/fFO56hQGk/dev_cpu_ide?orgId=1&from='+ from +'&to='+ to +'&panelId=2 frameborder="0"'; // initialises string variable myPath
+
+        var myImg = document.createElement('iframe'); // creates a new img element
+        myImg.setAttribute('src', myPath); // adds a src attribute (with the value myPath) to myImg
+        myImg.setAttribute('style',"width: 600px; height: 400px");
+        if(myDiv.childElementCount > 0){
+            var cell = document.getElementById('my-div'); while ( cell.hasChildNodes() ) {
+                cell.removeChild( cell.firstChild );
+            }
+
+            myDiv.appendChild(myImg); // adds a child element (myImg) to myDiv
+
+        }else {
+            myDiv.appendChild(myImg); // adds a child element (myImg) to myDiv
+
+        }
+    }
+
+    // clearInterval(playAlert);  //타이머 중지
+</script>
+</body>
+</html>
