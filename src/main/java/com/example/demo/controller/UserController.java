@@ -34,12 +34,6 @@ public class UserController {
     @Autowired
     private MemberRepository memberRepository;
 
-    // 메인 페이지
-    @GetMapping("/")
-    public String index() {
-
-        return "login";
-    }
 
     // 회원가입 페이지
     @GetMapping("/user/signup")
