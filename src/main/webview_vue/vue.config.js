@@ -15,7 +15,6 @@ module.exports = {
       }
     }
   },
-  baseUrl:"",
   assetsDir:"./assets/",
   outputDir:"../../main/resources/static/",
   transpileDependencies : ['vuetify']
