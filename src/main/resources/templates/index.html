@@ -103,12 +103,6 @@
         </div>
       </form>
 
-
-<!--     <iframe src="http://localhost:3000/d-solo/plArEdwGk/cpu_dashboard?orgId=1&from=1616226852880&to=1616248452880&panelId=2" width="500" height="300" frameborder="0"></iframe>-->
-
-      <div id="my-div"></div>
-
-
       <div>
         <span th:each="pageNum : ${pageList}" th:inline="text">
             <a th:href="@{'/board/list'}">[[${pageNum}]]</a>
@@ -121,45 +115,8 @@
     debugger;
 
     $(document).ready(function(){
-      var myDiv = document.getElementById('my-div'); // grabs #my-div
-      elementCreate(myDiv)
 
-      playAlert = setInterval(function() {
-        elementCreate(myDiv)
-      }, 30000);
     });
-
-    function elementCreate(myDiv){
-      const today = new Date();
-      // h = 시
-      // m = 분
-      let h = today.getHours();
-      let m = today.getMinutes();
-
-      // 각 시간의 5분 간격에서 10분 빼기
-      m = m - (m % 5) - 10;
-
-      today.setMinutes(m);
-
-      var from = new Date(today).getTime();
-      var to = new Date().getTime();
-
-      var myPath = 'http://localhost:3000/d-solo/fFO56hQGk/dev_cpu_ide?orgId=1&from='+ from +'&to='+ to +'&panelId=2 width="500" height="300" frameborder="0"'; // initialises string variable myPath
-
-      var myImg = document.createElement('iframe'); // creates a new img element
-      myImg.setAttribute('src', myPath); // adds a src attribute (with the value myPath) to myImg
-      if(myDiv.childElementCount > 0){
-        var cell = document.getElementById('my-div'); while ( cell.hasChildNodes() ) {
-          cell.removeChild( cell.firstChild );
-        }
-
-        myDiv.appendChild(myImg); // adds a child element (myImg) to myDiv
-
-      }else {
-        myDiv.appendChild(myImg); // adds a child element (myImg) to myDiv
-
-      }
-    }
 
     // clearInterval(playAlert);  //타이머 중지
   </script>
